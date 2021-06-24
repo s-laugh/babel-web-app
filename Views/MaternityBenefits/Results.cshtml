@@ -1,0 +1,136 @@
+﻿@using babel_web_app.Models.LibModels;
+@model SimulationResultsResponse
+
+@{
+    var baseCase = Model.Simulation.BaseCase;
+    var variantCase = Model.Simulation.VariantCase;
+
+    var result = Model.Result;
+}
+
+<h3>Simulation Results</h3>
+<hr/>
+
+<div>
+    <h4>Simulation Info</h4>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">Parameter</th>
+                    <th class="text-center">Base Case</th>
+                    <th class="text-center">Variant Case</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Max Weekly Amount ($)</td>
+                    <td class="text-center">@baseCase.MaxWeeklyAmount</td>
+                    <td class="text-center">@variantCase.MaxWeeklyAmount</td>
+                </tr>
+                <tr>
+                    <td>Percentage (%)</td>
+                    <td class="text-center">@baseCase.Percentage</td>
+                    <td class="text-center">@variantCase.Percentage</td>
+                </tr>
+                <tr>
+                    <td>Number of Weeks</td>
+                    <td class="text-center">@baseCase.NumWeeks</td>
+                    <td class="text-center">@variantCase.NumWeeks</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr/>
+    <h4>Aggregated Results</h4>
+    <div class="row">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Gainers</td>
+                    <td class="text-center">@result.TotalGainers</td>
+                </tr>
+                <tr>
+                    <td>Losers</td>
+                    <td class="text-center">@result.TotalLosers</td>
+                </tr>
+                <tr>
+                    <td>Neutral</td>
+                    <td class="text-center">@result.TotalNeutral</td>
+                </tr>
+                <tr>
+                    <td>Total Gained ($)</td>
+                    <td class="text-center">@String.Format("{0:n}", result.TotalGained)</td>
+                </tr>
+                <tr>
+                    <td>Total Lost ($)</td>
+                    <td class="text-center">@String.Format("{0:n}", result.TotalLost)</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <hr/>
+
+    <!--Demographic Aggregations -->
+    @* @foreach (var agg in Model.AggregationResults) {
+        await Html.RenderPartialAsync("_DemographicsAggregate.cshtml", agg); 
+    } *@
+
+    <h4>Individual Results</h4>
+    <div class="row">
+        <table class="table" id="results-table">
+            <thead>
+                <tr>
+                    <th class="text-center">Region</th>
+                    <th class="text-center">Age</th>
+                    <th class="text-center">FLSAH</th>
+                    <th class="text-center">Base Amount</th>
+                    <th class="text-center">Variant Amount</th>
+                    <th class="text-center">Diff</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var simRes in result.PersonResults) {
+                    var diff = (simRes.VariantAmount - simRes.BaseAmount);
+                    var styleClass = "loser";
+                    if (diff > 0) {
+                        styleClass = "gainer";
+                    } else if (diff == 0) {
+                        styleClass = "neutral";
+                    }
+
+                    <tr>
+                        <td>
+                            --------
+                            @* Add in the city/province *@
+                        </td>
+                        <td class="text-center">
+                            @simRes.Person.Age
+                        </td>
+                        <td class="text-center">
+                            @simRes.Person.Flsah
+                        </td>
+                        <td class="text-center">
+                            @String.Format("{0:n}", simRes.BaseAmount)
+                        </td>
+                        <td class="text-center">
+                            @String.Format("{0:n}", simRes.VariantAmount)
+                        </td>
+                        <td class="@styleClass text-center">
+                            @String.Format("{0:n}", diff)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    #results-table_wrapper {
+        width: 100% !important
+    }
+</style>

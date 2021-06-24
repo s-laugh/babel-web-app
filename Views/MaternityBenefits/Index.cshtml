@@ -1,0 +1,42 @@
+@using babel_web_app.Models.LibModels;
+@model AllSimulationsResponse;
+
+<div>
+    <h4>Admin</h4>
+    <div class="row">
+        <table class="table" id="admin-table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date</th>
+                    @* @if (ViewBag.IsAdmin) {
+                        <th>Delete</th>
+                    } *@
+                    
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var sim in Model.Simulations) {
+                    <tr>
+                        <td>
+                            <a asp-controller="MaternityBenefits" asp-action="Results" asp-route-id="@sim.Id">@sim.Id</a>
+                        </td>
+                        <td>
+                            @sim.SimulationName
+                        </td>
+                        <td>
+                            @sim.DateCreated
+                        </td>
+                        @* @if (ViewBag.IsAdmin) {
+                            <td>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@sim.Id">Delete</a>
+                            </td>
+                        } *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

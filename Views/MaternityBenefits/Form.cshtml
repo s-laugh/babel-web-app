@@ -1,0 +1,103 @@
+﻿@using babel_web_app.Models.ViewModels;
+@model SimulationFormViewModel
+
+<div>
+    <h3>New Simulation</h3>
+    <hr/>
+    <div>
+        Toggle the parameters for Maternity Benefits on this page, and press 'Run' to run the simulation on the data and view the results.
+    </div>
+    <br/>
+    <div>
+        <form asp-action="RunSim">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                            <label asp-for="SimulationName">
+                                Simulation Name 
+                            </label>
+                            <input type="text" class="form-control" asp-for="SimulationName"/>
+                            <span class="text-danger" asp-validation-for="SimulationName"></span>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Base Case</h5>
+                    <div class="form-group">
+                        <label asp-for="BaseCase.MaxWeeklyAmount">
+                            Maximum Weekly Amount 
+                        </label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input type="text" class="form-control" asp-for="BaseCase.MaxWeeklyAmount"/>
+                        </div>
+                        <span class="text-danger" asp-validation-for="BaseCase.MaxWeeklyAmount"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="BaseCase.Percentage">
+                            Percentage of Average Income
+                        </label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" asp-for="BaseCase.Percentage"/>
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                        <span class="text-danger" asp-validation-for="BaseCase.Percentage"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="BaseCase.NumWeeks" data-toggle="tooltip" data-placement="right" title="Number of Weeks for which an applicant can claim benefits">
+                            Number of Weeks
+                        </label>
+                        <input type="text" class="form-control" asp-for="BaseCase.NumWeeks"/>
+                        <span class="text-danger" asp-validation-for=" BaseCase.NumWeeks"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h5>Variant Case</h5>
+                    <div class="form-group">
+                        <label asp-for="VariantCase.MaxWeeklyAmount">
+                            Maximum Weekly Amount 
+                        </label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input type="text" class="form-control" asp-for="VariantCase.MaxWeeklyAmount"/>
+                        </div>
+                        <span class="text-danger" asp-validation-for="VariantCase.MaxWeeklyAmount"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="VariantCase.Percentage">
+                            Percentage of Average Income
+                        </label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" asp-for="VariantCase.Percentage"/>
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                        <span class="text-danger" asp-validation-for="VariantCase.Percentage"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="VariantCase.NumWeeks" data-toggle="tooltip" data-placement="right" title="Number of Weeks for which an applicant can claim benefits">
+                            Number of Weeks
+                        </label>
+                        <input type="text" class="form-control" asp-for="VariantCase.NumWeeks"/>
+                        <span class="text-danger" asp-validation-for="VariantCase.NumWeeks"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Run</button>
+        </form>
+    </div>
+</div>
