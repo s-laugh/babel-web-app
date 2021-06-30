@@ -37,36 +37,39 @@ namespace babel_web_app.Models.ViewModels
             double losers = personResults.Count(x => x.VariantAmount < x.BaseAmount);
             double neutrals = personResults.Count(x => x.VariantAmount == x.BaseAmount);
 
-            PercentGained = PercentFormatter(gainers / personResults.Count);
-            PercentLost = PercentFormatter(losers / personResults.Count);
-            PercentNeutral = PercentFormatter(neutrals / personResults.Count);
+            PercentGained = Percentify(gainers / personResults.Count, 0);
+            PercentLost = Percentify(losers / personResults.Count, 0);
+            PercentNeutral = Percentify(neutrals / personResults.Count, 0);
             
-
             var baseCost = personResults.Sum(x => x.BaseAmount);
             var variantCost = personResults.Sum(x => x.VariantAmount);
 
-            // TODO: Separate function
+            PercentCostChange = GetPercenceCostChange(baseCost, variantCost);
+
+            AverageAge = personResults.Average(x => x.Person.Age).ToString("F0");
+   
+        }
+
+        private string GetPercenceCostChange(decimal baseCost, decimal variantCost) {
             if (baseCost == 0) {
-                PercentCostChange = "--";
+                return "--";
             }
 
             var pcChange = (variantCost - baseCost) / Math.Abs(baseCost);
-            var pcChangeStr = pcChange.ToString("P2");
+            var pcChangeStr = Percentify((Double)pcChange, 2);
             if (pcChange < 0) {
                 pcChangeStr = "-" + pcChangeStr;
             }
             if (pcChange > 0) {
                 pcChangeStr = "+" + pcChangeStr;
             }
-            PercentCostChange = pcChangeStr;
-
-            AverageAge = personResults.Average(x => x.Person.Age).ToString("F0");
-   
+            return pcChangeStr;
         }
 
-        private string PercentFormatter(double percent) {
-            var result = percent.ToString("P0");
-            return result;
+        private string Percentify(double val, int decimals) {
+            var fString = $"F{decimals}";
+            var res = Math.Round(val * 100, decimals);
+            return res.ToString(fString) + "%";
         }
     }
 }

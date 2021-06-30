@@ -25,10 +25,6 @@ namespace babel_web_app.Lib
             if (response.StatusCode != System.Net.HttpStatusCode.OK) {
                 throw new SimulationApiException(response.ErrorMessage);
             }
- 
-            // Parsing JSON content into element-node JObject
-            // var jObject = JObject.Parse(response.Content);
-            // var result = jObject.Value<W>(propName);
 
             return response.Data;
         }
@@ -40,10 +36,6 @@ namespace babel_web_app.Lib
             if (response.StatusCode != System.Net.HttpStatusCode.OK) {
                 throw new SimulationApiException(response.ErrorMessage);
             }
- 
-            // Parsing JSON content into element-node JObject
-            //var jObject = JObject.Parse(response.Content);
-            //var result = jObject.Value<W>(propName);
 
             return response.Data;
         }

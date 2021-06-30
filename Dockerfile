@@ -3,15 +3,12 @@ WORKDIR /app
 
 #
 # copy csproj and restore as distinct layers
-#COPY *.csproj ./babel-web-app/
 COPY *.csproj ./
-
 #
 RUN dotnet restore 
 #
 # copy everything else and build app
 COPY . ./
-#COPY ./. ./babel-web-app/
 #
 WORKDIR /app
 RUN dotnet publish -c Release -o ./publish
