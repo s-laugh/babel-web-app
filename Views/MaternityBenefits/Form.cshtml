@@ -2,102 +2,74 @@
 @model SimulationFormViewModel
 
 <div>
-    <h3>New Simulation</h3>
-    <hr/>
-    <div>
-        Toggle the parameters for Maternity Benefits on this page, and press 'Run' to run the simulation on the data and view the results.
-    </div>
-    <br/>
-    <div>
-        <form asp-action="RunSim">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                            <label asp-for="SimulationName">
-                                Simulation Name 
+    <h1>Policy Difference Engine Demo</h1>
+    <p>Policy-making is complex. The Policy Difference Engine is an experiment that looks at potentially predicting at where impacts might be felt along regional or demographic lines if a policy change was to be made. This demo lets you model three possible changes that could be made to a particular policy.</p>
+    <div class="panel" id="content">
+        <h2>Step 1. Propose a policy adjustment</h2>
+        <p>These variables are extracted from maternity policies embedded within the IE (Imaginary Employment) Act. Change these variables and run a simulation to see the potential impacts. Please note that this is mock data of 100 imaginary individuals from an entirely fictional place.</p>
+        <br/>
+
+
+        <div>
+            <form asp-action="RunSim">
+                <!-- Need the hidden fields? -->
+                <input type="hidden" asp-for="SimulationName"/>
+                <input type="hidden" asp-for="BaseCase.MaxWeeklyAmount"/>
+                <input type="hidden" asp-for="BaseCase.Percentage"/>
+                <input type="hidden" asp-for="BaseCase.NumWeeks"/>
+
+                <div class="row">
+                    <!-- Max weekly amount -->
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="VariantCase.MaxWeeklyAmount">
+                                Maximum Weekly Amount 
                             </label>
-                            <input type="text" class="form-control" asp-for="SimulationName"/>
-                            <span class="text-danger" asp-validation-for="SimulationName"></span>
-                        </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Base Case</h5>
-                    <div class="form-group">
-                        <label asp-for="BaseCase.MaxWeeklyAmount">
-                            Maximum Weekly Amount 
-                        </label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">$</div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>
+                                <input type="text" class="form-control" asp-for="VariantCase.MaxWeeklyAmount"/>
                             </div>
-                            <input type="text" class="form-control" asp-for="BaseCase.MaxWeeklyAmount"/>
+                            <span class="text-danger" asp-validation-for="VariantCase.MaxWeeklyAmount"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BaseCase.MaxWeeklyAmount"></span>
                     </div>
 
-                    <div class="form-group">
-                        <label asp-for="BaseCase.Percentage">
-                            Percentage of Average Income
-                        </label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" asp-for="BaseCase.Percentage"/>
-                            <div class="input-group-append">
-                                <span class="input-group-text">%</span>
+                    <!-- Percentage -->
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="VariantCase.Percentage">
+                                Percentage of Average Income
+                            </label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" asp-for="VariantCase.Percentage"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
                             </div>
+                            <span class="text-danger" asp-validation-for="VariantCase.Percentage"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BaseCase.Percentage"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label asp-for="BaseCase.NumWeeks" data-toggle="tooltip" data-placement="right" title="Number of Weeks for which an applicant can claim benefits">
-                            Number of Weeks
-                        </label>
-                        <input type="text" class="form-control" asp-for="BaseCase.NumWeeks"/>
-                        <span class="text-danger" asp-validation-for=" BaseCase.NumWeeks"></span>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <h5>Variant Case</h5>
-                    <div class="form-group">
-                        <label asp-for="VariantCase.MaxWeeklyAmount">
-                            Maximum Weekly Amount 
-                        </label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">$</div>
-                            </div>
-                            <input type="text" class="form-control" asp-for="VariantCase.MaxWeeklyAmount"/>
-                        </div>
-                        <span class="text-danger" asp-validation-for="VariantCase.MaxWeeklyAmount"></span>
                     </div>
 
-                    <div class="form-group">
-                        <label asp-for="VariantCase.Percentage">
-                            Percentage of Average Income
-                        </label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" asp-for="VariantCase.Percentage"/>
-                            <div class="input-group-append">
-                                <span class="input-group-text">%</span>
-                            </div>
+                    <!-- Num weeks -->
+                    <div class="col">
+                        <div class="form-group">
+                            <label asp-for="VariantCase.NumWeeks" data-toggle="tooltip" data-placement="right" title="Number of Weeks for which an applicant can claim benefits">
+                                Number of Weeks
+                            </label>
+                            <input type="text" class="form-control" asp-for="VariantCase.NumWeeks"/>
+                            <span class="text-danger" asp-validation-for="VariantCase.NumWeeks"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="VariantCase.Percentage"></span>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label asp-for="VariantCase.NumWeeks" data-toggle="tooltip" data-placement="right" title="Number of Weeks for which an applicant can claim benefits">
-                            Number of Weeks
-                        </label>
-                        <input type="text" class="form-control" asp-for="VariantCase.NumWeeks"/>
-                        <span class="text-danger" asp-validation-for="VariantCase.NumWeeks"></span>
                     </div>
                 </div>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Run</button>
-        </form>
+                <br/>
+                <div class="d-flex justify-content-between">
+                    <!-- TODO: Make this work... jquery -->
+                    <button type="button" disabled class="btn btn-default">Reset Fields</a>
+                    <button type="submit" class="btn btn-primary">Run my simulation</button>
+                </div>
+                <br/><br/> 
+            </form>
+        </div>
     </div>
 </div>

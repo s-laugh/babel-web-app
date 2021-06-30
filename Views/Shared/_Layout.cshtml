@@ -11,10 +11,18 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 </head>
 <body>
+    <div class="skippy visually-hidden-focusable overflow-hidden">
+        <div class="container-xl">
+            <a class="d-inline-flex p-2 m-1" href="#content">Skip to main content</a>
+        </div>
+    </div>
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" role="navigation" aria-label="Main">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Maternity Benefits Simulator</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/white.png" alt="team babel logo"/>
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,7 +30,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MaternityBenefits" asp-action="Form">New Simulation</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="MaternityBenefits" asp-action="Form">New Simulation</a>
                         </li>
                     </ul>
                 </div>
@@ -37,7 +45,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - babel_web_app - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - Team Babel Policy Difference Engine 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

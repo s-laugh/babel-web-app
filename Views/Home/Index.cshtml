@@ -2,7 +2,20 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    Welcome to the Maternity Benefits Policy Difference Engine. Select 'New Simulation' to begin.
-   
+<h1>Policy Difference Engine Demo</h1>
+<p>Policy-making is complex. The Policy Difference Engine is an experiment that looks at potentially predicting at where impacts might be felt along regional or demographic lines if a policy change was to be made. This demo lets you model three possible changes that could be made to a particular policy.</p>
+
+<div class="panel" id="content">
+    <div class="row">
+        <div class="col-md col-sm-auto">
+        <h2>Test Drive the Maternity Benefits Demo</h2>
+            <p>In this scenario, you’re a maternity policy analyst. You’re responsible for advising decision-makers on who might be impacted by potential upcoming changes to maternity policy in Canada.</p>
+            <p>
+            In this demo, you can mimic some possible changes and see who might be affected on an imitation population. Remember, this is just a demo, and the people aren’t real! If you’d like to do this for real, check out the Canadian School of Public Service.</p>
+            <p><a asp-controller="MaternityBenefits" asp-action="Form"  class="btn btn-primary">Get Started</a></p>
+        </div> 
+        <div class="col-md col-sm-auto">
+            <img src="~/img/splash-image.png" alt="illustration of two people looking at a set of charts and graphs"/>
+        </div>
 </div>
+

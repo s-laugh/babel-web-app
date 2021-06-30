@@ -8,41 +8,6 @@ namespace babel_web_app.Models.LibModels
     {
         public List<PersonResult> PersonResults { get; set; }
 
-
-        // TODO: These will likely need to be pulled out when using nuget and put in the viewmodel
-        public int TotalGainers {   
-            get {
-                return PersonResults.Count(x => x.VariantAmount > x.BaseAmount);
-            }
-        }
-
-        public int TotalLosers {
-            get {
-                return PersonResults.Count(x => x.VariantAmount < x.BaseAmount);
-            }
-        }
-        public int TotalNeutral {
-            get {
-                return PersonResults.Count(x => x.VariantAmount == x.BaseAmount);
-            }
-        }
-
-        public decimal TotalGained { 
-            get {
-                return PersonResults
-                    .Where(x => x.VariantAmount > x.BaseAmount)
-                    .Sum(x => x.VariantAmount - x.BaseAmount);
-            }
-
-        }
-
-        public decimal TotalLost {
-            get {
-                return PersonResults
-                    .Where(x => x.VariantAmount < x.BaseAmount)
-                    .Sum(x => x.VariantAmount - x.BaseAmount);
-            }
-        }
     }
 
     public class PersonResult {

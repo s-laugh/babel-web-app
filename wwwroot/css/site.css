@@ -69,3 +69,202 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+#visualize-button {
+  color: white;
+}
+
+
+/********************  Design changes *****************888***/
+html,body{padding: 0; margin: 0}
+h1,h2,h3,h4,h5{
+    font-family:  Montserrat;
+}
+
+
+/* Fonts */
+h1{
+    font-size:  36px;
+    padding: 14px 0;
+}
+h2{
+    font-size:  28px;
+    padding:  12px 0;
+}
+h3{
+    font-size:  20px;
+}
+p{
+    font-size:  16px;
+    font-family: 'Lato', helvetica, arial, san-serif;
+    color:  #222;
+    padding:  0 0 14px 0;
+    margin:  0;
+}
+
+
+/** Nav-specific **/
+nav.navbar {
+    height: 98px;
+    background: #24C6DC;
+    background: -webkit-linear-gradient(to right, #514A9D, #24C6DC);
+    background: linear-gradient(to right, #514A9D, #24C6DC);
+
+}
+.navbar-light .navbar-brand {
+    color: #ffffff
+}
+a.navbar-brand img {
+    max-width: 70px;
+}
+
+/** Page components **/
+.panel {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 28px 48px;
+}
+hr.full{
+    padding:  0;
+    margin:  25px -48px 25px -48px !important;
+}
+
+/** Images **/
+img{
+    max-width:  100%;
+}
+
+/** Buttons **/
+a.btn{
+    border:  0;
+}
+@media (max-width: 767px){
+    a.btn{width:  100%;}
+}
+
+.btn.btn-primary{
+    background: #1D5B90;
+    border:  0;
+    border: 2px solid #1D5B90;
+}
+a.btn:hover{
+    background: #ffffff;
+    border:  2px solid #1D5B90;
+    color:  #1D5B90;
+}
+.btn.btn-default{
+    background: #ccc;
+    border:  2px solid #ccc;
+}
+a.btn.btn-default:hover{
+    background:  #fff;
+    border:  2px solid #ccc;
+    color:  #666;
+}
+
+/** Access **/
+
+.sr-only{
+    display:  none;
+}
+
+/** Forms **/
+.form-group label{
+    font-size:  16px;
+    font-weight:  500;
+    font-family:  Montserrat;
+}
+
+/** Table Styles **/
+ 
+td.loser.text-center:after {
+    content: '\2193';
+    color: #bd0000;
+}
+td.loser.text-center {
+    color: #bd0000;
+    font-weight: bold;
+}
+td.gainer.text-center:after{
+    content:  '\2191';
+    color:  #28a745;
+}
+td.gainer.text-center{
+    color:  #28a745;
+    font-weight:  bold;
+}
+
+
+/* Responsive Table */
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+    h1,h2,h3,h4{
+        text-align: center;
+    }
+
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+    
+    thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    tr { border: 1px solid #fff; margin-top: 18px; box-shadow:  0px 0px 5px #ccc; padding: 0}
+    
+    td { 
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 50%; 
+        text-align: center;
+    }
+
+    tr td:nth-child(1){
+        border-top:  0;
+    }
+    
+    td:before { 
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+    }
+}
+
+#content h4 {
+    font-size: 30px;
+    background: -webkit-linear-gradient(to right, #514A9D, #24C6DC);
+    background: linear-gradient(to right, #514A9D, #24C6DC);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 1px;
+    font-size: 66px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 2px #ccc;
+    text-shadow: 1px 2px 2px #222;
+}
+
+/** Skip to Content **/ 
+.visually-hidden, .visually-hidden-focusable:not(:focus):not(:focus-within) {
+    position: absolute!important;
+    width: 1px!important;
+    height: 1px!important;
+    padding: 0!important;
+    margin: -1px!important;
+    overflow: hidden!important;
+    clip: rect(0,0,0,0)!important;
+    white-space: nowrap!important;
+    border: 0!important;
+}
+
+/** Footer **/
+
+.footer{margin: 120px 0 0 0}
