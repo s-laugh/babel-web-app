@@ -70,7 +70,8 @@ namespace babel_web_app.Controllers
 
         public IActionResult Results(Guid id) {
             var simResults = _handler.GetSimulationResults(id);
-            return View(simResults);
+            var resultsView = new ResultsViewModel(simResults);
+            return View(resultsView);
         }
 
         public IActionResult Privacy()
