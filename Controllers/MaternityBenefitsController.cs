@@ -15,15 +15,11 @@ namespace babel_web_app.Controllers
 {
     public class MaternityBenefitsController : Controller
     {
-        private readonly ILogger<MaternityBenefitsController> _logger;
         private readonly IHandleSimulationRequests _handler;
 
-        public MaternityBenefitsController(
-            IHandleSimulationRequests handler,
-            ILogger<MaternityBenefitsController> logger)
+        public MaternityBenefitsController(IHandleSimulationRequests handler)
         {
             _handler = handler;
-            _logger = logger;
         }
 
         public IActionResult Index()
@@ -34,8 +30,14 @@ namespace babel_web_app.Controllers
 
 
         public IActionResult Delete(Guid id) {
-            _handler.DeleteSimulation(id);
-            return RedirectToAction("Index");
+            try {
+                _handler.DeleteSimulation(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex) {
+                var message = String.IsNullOrEmpty(ex.Message) ? "The requested simulation no longer exists." : ex.Message;
+                return RedirectToAction("Error", new { message });
+            }
         }
 
         public IActionResult Form()
@@ -61,28 +63,36 @@ namespace babel_web_app.Controllers
         {
             if (ModelState.IsValid) {
                 var simulationRequest = new SimulationRequest(formViewModel);
-                var result = _handler.CreateNewSimulation(simulationRequest);
-                var id = result.Id;
-                return RedirectToAction("Results", new { id });
+                
+                try {
+                    var result = _handler.CreateNewSimulation(simulationRequest);
+                    var id = result.Id;
+                    return RedirectToAction("Results", new { id });
+                }
+                catch (Exception ex) {
+                    return RedirectToAction("Error", new { message = ex.Message });
+                }
             }
             return View("Form");
         }
 
         public IActionResult Results(Guid id) {
-            var simResults = _handler.GetSimulationResults(id);
-            var resultsView = new ResultsViewModel(simResults);
-            return View(resultsView);
+            try {
+                var simResults = _handler.GetSimulationResults(id);
+                var resultsView = new ResultsViewModel(simResults);
+                return View(resultsView);
+            }
+            catch (Exception ex) {
+                var message = String.IsNullOrEmpty(ex.Message) ? "The requested simulation no longer exists." : ex.Message;
+                return RedirectToAction("Error", new { message });
+            }
         }
 
-        public IActionResult Privacy()
+        public IActionResult Error(string message)
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel() {
+                ErrorMessage = message
+            });
         }
     }
 }

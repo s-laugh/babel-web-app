@@ -1,0 +1,14 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">Sorry! An error occurred while running the simulation. Please try a new simulation with different values.</h2>
+
+@if (!String.IsNullOrEmpty(Model.ErrorMessage)) {
+    <h3>Error Message</h3>
+    <p>
+        @Model.ErrorMessage
+    </p>
+}
