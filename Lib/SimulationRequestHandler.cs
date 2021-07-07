@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using babel_web_app.Models.LibModels;
+
+using esdc_simulation_classes.MaternityBenefits;
 
 namespace babel_web_app.Lib
 {
@@ -13,25 +14,25 @@ namespace babel_web_app.Lib
             _api = api;
         }
 
-        public SimulationCreateResponse CreateNewSimulation(SimulationRequest request) {
-            var result = _api.ExecutePost<SimulationCreateResponse>(ENDPOINT, request, "");
+        public CreateSimulationResponse CreateNewSimulation(CreateSimulationRequest request) {
+            var result = _api.ExecutePost<CreateSimulationResponse>(ENDPOINT, request);
             return result;
         }
 
         public AllSimulationsResponse GetAllSimulations() {
-            var result = _api.ExecuteGet<AllSimulationsResponse>(ENDPOINT, "simulations");
+            var result = _api.ExecuteGet<AllSimulationsResponse>(ENDPOINT);
             return result;
         }
 
-        public SimulationResultsResponse GetSimulationResults(Guid simulationId) {
+        public FullResponse GetSimulationResults(Guid simulationId) {
             var endpoint = $"{ENDPOINT}/{simulationId}/Results";
-            // Need to add in id to parm
-            var result = _api.ExecuteGet<SimulationResultsResponse>(endpoint, "");
+            var result = _api.ExecuteGet<FullResponse>(endpoint);
             return result;
         }
 
         public void DeleteSimulation(Guid simulationId) {
-            throw new NotImplementedException();
+            var endpoint = $"{ENDPOINT}/{simulationId}";
+            _api.ExecuteDelete(endpoint);
         }
     }
 }

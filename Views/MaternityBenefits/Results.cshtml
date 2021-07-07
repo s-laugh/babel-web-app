@@ -1,4 +1,4 @@
-﻿@using babel_web_app.Models.ViewModels;
+﻿@using babel_web_app.Models;
 @model ResultsViewModel
 
 @{
@@ -78,6 +78,7 @@
                 <th scope="col" class="text-center">Province</th>
                 <th scope="col" class="text-center">Age</th>
                 <th scope="col" class="text-center">Language</th>
+                <th scope="col" class="text-center">Education</th>
                 <th scope="col" class="text-center">Base Amount</th>
                 <th scope="col" class="text-center">Variant Amount</th>
                 <th scope="col" class="text-center">Diff</th>
@@ -96,14 +97,16 @@
 
                 <tr>
                     <td>
-                        --------
-                        @* TODO: Add in the city/province *@
+                        @simRes.Person.Province
                     </td>
                     <td class="text-center">
                         @simRes.Person.Age
                     </td>
                     <td class="text-center">
-                        @simRes.Person.Flsah
+                        @simRes.Person.SpokenLanguage
+                    </td>
+                    <td class="text-center">
+                        @simRes.Person.EducationLevel
                     </td>
                     <td class="text-center">
                         @String.Format("{0:n}", simRes.BaseAmount)

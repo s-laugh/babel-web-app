@@ -1,17 +1,17 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace babel_web_app.Models.ViewModels
+namespace babel_web_app.Models
 {
     public class SimulationCaseViewModel
     {
         [Required]
-        [Range(0,100)]
+        [Range(1, 100)]
         public double Percentage { get; set; }
         [Required]
-        [Range(0,2000)]
+        [Range(100, 2000)]
         public decimal MaxWeeklyAmount { get; set; }
         [Required]
-        [Range(5,52)]
+        [Range(1, 52)]
         public int NumWeeks { get; set; }
     }
 }

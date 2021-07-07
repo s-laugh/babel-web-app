@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
-using babel_web_app.Models.LibModels;
+
+using esdc_simulation_classes.MaternityBenefits;
 
 namespace babel_web_app.Lib
 {
     public interface IHandleSimulationRequests
     {
-         SimulationCreateResponse CreateNewSimulation(SimulationRequest request);
+         CreateSimulationResponse CreateNewSimulation(CreateSimulationRequest request);
          AllSimulationsResponse GetAllSimulations();
-         SimulationResultsResponse GetSimulationResults(Guid simulationId);
+         FullResponse GetSimulationResults(Guid simulationId);
          void DeleteSimulation(Guid simulationId);
     }
 }

@@ -16,7 +16,7 @@ namespace babel_web_app.Lib
             _client.UseNewtonsoftJson();
         }
 
-        public W ExecutePost<W>(string endpoint, object request, string propName) {
+        public W ExecutePost<W>(string endpoint, object request) {
             var restRequest = new RestRequest(endpoint, DataFormat.Json);
 
             restRequest.AddJsonBody(request);
@@ -29,7 +29,7 @@ namespace babel_web_app.Lib
             return response.Data;
         }
 
-        public W ExecuteGet<W>(string endpoint, string propName) {
+        public W ExecuteGet<W>(string endpoint) {
             var restRequest = new RestRequest(endpoint, DataFormat.Json);
             var response = _client.Get<W>(restRequest);
 
@@ -38,6 +38,15 @@ namespace babel_web_app.Lib
             }
 
             return response.Data;
+        }
+
+        public void ExecuteDelete(string endpoint) {
+            var restRequest = new RestRequest(endpoint, DataFormat.Json);
+            var response = _client.Delete(restRequest);
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK) {
+                throw new SimulationApiException(response.ErrorMessage);
+            }
         }
         
     }

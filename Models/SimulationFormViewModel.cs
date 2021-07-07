@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace babel_web_app.Models.ViewModels
+namespace babel_web_app.Models
 {
     public class SimulationFormViewModel
     {

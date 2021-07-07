@@ -5,10 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using babel_web_app.Models.ViewModels;
-using babel_web_app.Models.LibModels;
 using babel_web_app.Models;
 using babel_web_app.Lib;
+
+using esdc_simulation_classes.MaternityBenefits;
 
 
 namespace babel_web_app.Controllers
@@ -22,9 +22,10 @@ namespace babel_web_app.Controllers
             _handler = handler;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string admin)
         {
             var results = _handler.GetAllSimulations();
+            ViewBag.IsAdmin = (admin == "admin");
             return View(results);
         }
 
@@ -62,7 +63,7 @@ namespace babel_web_app.Controllers
         public IActionResult RunSim(SimulationFormViewModel formViewModel)
         {
             if (ModelState.IsValid) {
-                var simulationRequest = new SimulationRequest(formViewModel);
+                CreateSimulationRequest simulationRequest = Convert(formViewModel);
                 
                 try {
                     var result = _handler.CreateNewSimulation(simulationRequest);
@@ -93,6 +94,22 @@ namespace babel_web_app.Controllers
             return View(new ErrorViewModel() {
                 ErrorMessage = message
             });
+        }
+
+        private CreateSimulationRequest Convert(SimulationFormViewModel vm) {
+            return new CreateSimulationRequest() {
+                SimulationName = vm.SimulationName,
+                BaseCaseRequest = Convert(vm.BaseCase),
+                VariantCaseRequest = Convert(vm.VariantCase)
+            };
+        }
+
+        private CaseRequest Convert(SimulationCaseViewModel vm) {
+            return new CaseRequest() {
+                NumWeeks = vm.NumWeeks,
+                MaxWeeklyAmount = vm.MaxWeeklyAmount,
+                Percentage = vm.Percentage
+            };
         }
     }
 }

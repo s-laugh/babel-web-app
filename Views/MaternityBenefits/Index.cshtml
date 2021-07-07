@@ -1,4 +1,4 @@
-@using babel_web_app.Models.LibModels;
+@using esdc_simulation_classes.MaternityBenefits;
 @model AllSimulationsResponse;
 
 <div>
@@ -29,11 +29,11 @@
                         <td>
                             @sim.DateCreated
                         </td>
-                        @* @if (ViewBag.IsAdmin) {
+                        @if (ViewBag.IsAdmin) {
                             <td>
                                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@sim.Id">Delete</a>
                             </td>
-                        } *@
+                        }
                     </tr>
                 }
             </tbody>

@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using babel_web_app.Models.LibModels;
+using esdc_simulation_classes.MaternityBenefits;
 
-
-namespace babel_web_app.Models.ViewModels
+namespace babel_web_app.Models
 {
     public class ResultsViewModel
     {
@@ -17,12 +16,11 @@ namespace babel_web_app.Models.ViewModels
         public string PercentCostChange { get; set; }
 
 
+        public List<PersonResultResponse> PersonResults { get; set; }
 
-        public List<PersonResult> PersonResults { get; set; }
+        public SimulationResponse Simulation { get; set; }
 
-        public MaternityBenefitsSimulationResponse Simulation { get; set; }
-
-        public ResultsViewModel(SimulationResultsResponse response) {
+        public ResultsViewModel(FullResponse response) {
             PersonResults = response.Result.PersonResults;
             Simulation = response.Simulation;
 
@@ -52,14 +50,14 @@ namespace babel_web_app.Models.ViewModels
 
         private string GetPercenceCostChange(decimal baseCost, decimal variantCost) {
             if (baseCost == 0) {
-                return "--";
+                return "---";
             }
 
             var pcChange = (variantCost - baseCost) / Math.Abs(baseCost);
             var pcChangeStr = Percentify((Double)pcChange, 2);
-            if (pcChange < 0) {
-                pcChangeStr = "-" + pcChangeStr;
-            }
+            // if (pcChange < 0) {
+            //     pcChangeStr = "-" + pcChangeStr;
+            // }
             if (pcChange > 0) {
                 pcChangeStr = "+" + pcChangeStr;
             }
