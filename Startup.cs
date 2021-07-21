@@ -35,13 +35,21 @@ namespace babel_web_app
             services.AddScoped<IRestClient, RestSharp.RestClient>();
             services.AddScoped<SimulationApi>();
 
+            // Simulation Engine Options
             var simulationUrl = Configuration["SimulationEngineOptions:Url"] ?? 
                 Environment.GetEnvironmentVariable("simulationEngineUrl");
-
             var simOptions = new SimulationEngineOptions() {
                 Url = simulationUrl
             };
             services.AddSingleton<IOptions<SimulationEngineOptions>>(x => Options.Create(simOptions));
+
+            // Power BI Options
+            var powerBiLink = Configuration["PowerBiOptions:Link"] ?? 
+                Environment.GetEnvironmentVariable("powerBiUrl");
+            var pbOptions = new PowerBiOptions() {
+                Link = powerBiLink
+            };
+            services.AddSingleton<IOptions<PowerBiOptions>>(x => Options.Create(pbOptions));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
