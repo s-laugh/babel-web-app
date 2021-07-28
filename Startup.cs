@@ -37,7 +37,7 @@ namespace babel_web_app
 
             // Simulation Engine Options
             var simulationUrl = Configuration["SimulationEngineOptions:Url"] ?? 
-                Environment.GetEnvironmentVariable("simulationEngineUrl");
+                Environment.GetEnvironmentVariable("SIMULATION_ENGINE_URL");
             var simOptions = new SimulationEngineOptions() {
                 Url = simulationUrl
             };
@@ -45,7 +45,7 @@ namespace babel_web_app
 
             // Power BI Options
             var powerBiLink = Configuration["PowerBiOptions:Link"] ?? 
-                Environment.GetEnvironmentVariable("powerBiUrl");
+                Environment.GetEnvironmentVariable("POWER_BI_LINK");
             var pbOptions = new PowerBiOptions() {
                 Link = powerBiLink
             };
