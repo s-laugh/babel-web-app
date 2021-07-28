@@ -20,8 +20,8 @@ Use `dotnet run` to run the project.
 Note: If running this project locally alongside related web APIs (such as the Simulation Engine), ensure you are specifying the projects to run on separate ports in the launchSettings.json file (in VS Code)
 
 ### Running in Docker
-docker build -t babel-web-app .
-docker run -it --rm -p 7000:80 babel-web-app
+`docker build -t babel-web-app .`
+`docker run -it --rm -p 7000:80 babel-web-app`
 
 ### Deployment
 There are currently two separate deployments of the Web app, both in Microsoft Azure (Azure App Service). The mock deployment is connected to a mock simulation engine, and the prod deployment is connected to the prod simulation engine. Deployments are set up using github actions, based on manually clicking a button. Go to the github actions, choose the workflow (Deploy Mock or Deploy Prod), and then run it.
