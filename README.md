@@ -20,21 +20,8 @@ Use `dotnet run` to run the project.
 Note: If running this project locally alongside related web APIs (such as the Simulation Engine), ensure you are specifying the projects to run on separate ports in the launchSettings.json file (in VS Code)
 
 ### Running in Docker
-docker build -t babel-web-app .
-docker run -it --rm -p 7000:80 babel-web-app
+- `docker build -t babel-web-app .`
+- `docker run -it --rm -p 7000:80 babel-web-app`
 
 ### Deployment
-There are currently two separate deployments of the Web app, both in Microsoft Azure (Azure App Service). The mock deployment is connected to a mock simulation engine, and the prod deployment is connected to the prod simulation engine. Prior to deploying, ensure the configs are appropriately set in the appsettings.Production.json file.
-
-I've used VS Code as an IDE, and it comes with extensions that make deployment easier. Install the following extensions:
-- Azure Account
-- Azure App Service
-- Docker
-
-Once successfully installed, you will get corresponding tabs in VS code that can be used to facilitate deployment. Ensure you are signed in to Azure and that VS Code is connected to your Azure account.
-
-Build the docker file. You can use the previously mentioned docker command or use the docker plugin in VS Code by right-clicking on the docker file and selecting "Build Image".
-
-Navigate to the Docker tab in VS Code and find the "Images" section. Find the image that you just built, expand it, then right-click on the "latest" tag, and select "push". It should confirm the container that will be used for deployment.
-
-If deploying to both mock and prod environments, you will need to do this twice. First, set the appsettings.Production.json config settings to the mock values, then build and push the image. Then change the config to the prod values, and repeat.
+There are currently two separate deployments of the Web app, both in Microsoft Azure (Azure App Service). The mock deployment is connected to a mock simulation engine, and the prod deployment is connected to the prod simulation engine. Deployments are set up using github actions, based on manually clicking a button. Go to the github actions, choose the workflow (Deploy Mock or Deploy Prod), and then run it.
