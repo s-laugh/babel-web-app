@@ -1,0 +1,147 @@
+﻿@using babel_web_app.Models;
+@model ResultsViewModel
+
+@{
+    var baseCase = Model.Simulation.BaseCase;
+    var variantCase = Model.Simulation.VariantCase;
+    var personResults = Model.PersonResults;
+}
+
+<h1>Policy Difference Engine Demo</h1>
+<p>Policy-making is complex. The Policy Difference Engine is an experiment that looks at potentially predicting at where impacts might be felt along regional or demographic lines if a policy change was to be made. This demo lets you model three possible changes that could be made to a particular policy.</p>
+
+<div class="panel" id="content">
+    <h2>Step 2. Simulation results</h2>
+    <p>You changed some variables, and we created a simulated population of 100 individuals using mock data to show you who might be impacted by your changes. Try exploring the data here, or download for the tool of your choice.</p>
+    <hr class="full"/>
+
+    <h3>Your Changes</h3>
+    <table class="table">
+        <thead>
+            <th scope="col"></th>
+            <th scope="col" class="text-center">Original Value</th>
+            <th scope="col" class="text-center">Proposed Change</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>Maximum Weekly Amount</b></td>
+                <td class="text-center">@baseCase.MaxWeeklyAmount</td>
+                <td class="text-center">@variantCase.MaxWeeklyAmount</td>
+            </tr>
+            <tr>
+                <td><b>Percentage of Average Income</b></td>
+                <td class="text-center">@baseCase.Percentage</td>
+                <td class="text-center">@variantCase.Percentage</td>
+            </tr>
+            <tr>
+                <td><b>Number of Eligible Weeks</b></td>
+                <td class="text-center">@baseCase.NumWeeks</td>
+                <td class="text-center">@variantCase.NumWeeks</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <hr class="full"/>
+    <div>
+        <a href="@ViewBag.PowerBiLink" target="_blank">View in Dashboard</a>
+        <p style="font-size:0.8rem;">* Only accessible to associated PowerBI Pro account users</p>
+    </div>
+    <hr class="full"/>
+
+    <h3>Results</h3>
+    <br/>
+
+    <div class="row">
+        <div class="col">
+            <h4>@(Model.PercentGained)</h4>
+            <p>People who gained money</p>
+        </div>
+        <div class="col">
+            <h4>@(Model.PercentLost)</h4>
+            <p>People who lost money</p>
+        </div>
+        <div class="col">
+            <h4>@(Model.PercentNeutral)</h4>
+            <p>People who stayed the same</p>
+        </div>
+        <div class="col">
+            <h4>@(Model.AverageAge)</h4>
+            <p>Average Age</p>
+        </div>
+        <div class="col">
+            <h4>@(Model.PercentCostChange)</h4>
+            <p>Budget change</p>
+        </div>
+    </div>
+
+    <hr class="full">
+
+    <h3>Individual Results</h3>
+    <table class="table" id="results-table">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Province</th>
+                <th scope="col" class="text-center">Age</th>
+                <th scope="col" class="text-center">Language</th>
+                <th scope="col" class="text-center">Education</th>
+                <th scope="col" class="text-center">Base Amount</th>
+                <th scope="col" class="text-center">Variant Amount</th>
+                <th scope="col" class="text-center">Diff</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var simRes in Model.PersonResults) {
+                var diff = (simRes.VariantAmount - simRes.BaseAmount);
+                var styleClass = "loser";
+                if (diff > 0) {
+                    styleClass = "gainer";
+                } else if (diff == 0) {
+                    styleClass = "neutral";
+                }
+
+                <tr>
+                    <td>
+                        @simRes.Person.Province
+                    </td>
+                    <td class="text-center">
+                        @simRes.Person.Age
+                    </td>
+                    <td class="text-center">
+                        @simRes.Person.SpokenLanguage
+                    </td>
+                    <td class="text-center">
+                        @simRes.Person.EducationLevel
+                    </td>
+                    <td class="text-center">
+                        @String.Format("{0:n}", simRes.BaseAmount)
+                    </td>
+                    <td class="text-center">
+                        @String.Format("{0:n}", simRes.VariantAmount)
+                    </td>
+                    <td class="@styleClass text-center">
+                        @String.Format("{0:n}", diff)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr class="full"/>
+
+    <div class="d-flex justify-content-between">
+        <!-- TODO: Look into this -->
+        <a class="disabled btn btn-default">Download dataset</a>
+        <!-- TODO: Link to PowerBI -->
+        <a id="visualize-button" class="btn btn-primary disabled">Visualize dataset</a>
+    </div>
+
+</div>
+<br/><br/>
+
+
+<style>
+    #results-table_wrapper {
+        width: 100% !important
+    }
+</style>

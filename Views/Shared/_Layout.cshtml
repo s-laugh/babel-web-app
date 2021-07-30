@@ -62,5 +62,13 @@ $(document).ready( function () {
         searching: false,
         pageLength: 100
     });
+
+    $('.aggregation-table').DataTable({
+        searching: false,
+        pageLength: 100,
+        paging:   false,
+        lengthChange: false,
+        info: false
+    });
 } );
 </script>

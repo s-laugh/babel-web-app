@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using babel_web_app.Models;
 using babel_web_app.Lib;
+using babel_web_app.Lib.Results;
 
 using esdc_simulation_classes.MaternityBenefits;
 
@@ -78,12 +79,28 @@ namespace babel_web_app.Controllers
             return View("Form");
         }
 
-        public IActionResult Results(Guid id) {
+        // TODO: Remove this
+        public IActionResult ResultsOld(Guid id) {
             try {
                 var simResults = _handler.GetSimulationResults(id);
                 var resultsView = new ResultsViewModel(simResults);
                 ViewBag.PowerBiLink = BuildPowerBiLink(simResults.Simulation);
                 return View(resultsView);
+            }
+            catch (Exception ex) {
+                var message = String.IsNullOrEmpty(ex.Message) ? "The requested simulation no longer exists." : ex.Message;
+                return RedirectToAction("Error", new { message });
+            }
+        }
+
+        public IActionResult Results(Guid id) {
+            try {
+                var simResults = _handler.GetSimulationResults(id);
+                var resultsView = new ResultsViewModel(simResults);
+
+                var resultsSummary = new ResultsSummary(simResults.Simulation, simResults.Result.PersonResults);
+               
+                return View(resultsSummary);
             }
             catch (Exception ex) {
                 var message = String.IsNullOrEmpty(ex.Message) ? "The requested simulation no longer exists." : ex.Message;
